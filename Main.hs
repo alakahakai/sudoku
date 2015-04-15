@@ -19,6 +19,7 @@ isValid g = all noDups (rows g) &&
             all noDups (cols g) &&
             all noDups (boxes g)
 
+{-| Fill in  in every empty cell -}
 choices :: Sudoku -> Matrix [Digit]
 choices = let choice d = if blank d then [1..9] else [d]
           in  map (map choice)
@@ -130,3 +131,13 @@ main = do
            [0,0,7,0,0,5,0,0,0],
            [4,0,5,0,1,0,7,0,8]] :: Sudoku
   showSolution b
+  let c = [[0,0,0,0,3,7,6,0,0],
+           [0,0,0,6,0,0,0,9,0],
+           [0,0,8,0,0,0,0,0,4],
+           [0,9,0,0,0,0,0,0,1],
+           [6,0,0,0,0,0,0,0,9],
+           [3,0,0,0,0,0,0,4,0],
+           [7,0,0,0,0,0,8,0,0],
+           [0,1,0,0,0,9,0,0,0],
+           [0,0,2,5,4,0,0,0,0]] :: Sudoku
+  showSolution c
