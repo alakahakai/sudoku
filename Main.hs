@@ -1,5 +1,6 @@
 {-
   A Haskell program to solve Sodoku puzzles
+  Ray Qiu <ray.qiu@gmail.com>, April 2015
 -}
 
 type Matrix a = [Row a]
