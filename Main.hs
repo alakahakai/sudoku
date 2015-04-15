@@ -32,11 +32,14 @@ search cm
 {-| Expand a non-singleton cell at a time -}
 expand :: Matrix [Digit] -> [Matrix [Digit]]
 expand s = let (rows1, row:rows2) = break (any isSmallest) s
+               -- ^ row contains the Row that has the smallest cell (cell has the least number of Digits)
                (row1, cs:row2)    = break isSmallest row
+               -- ^ cs is the smallest cell
                isSmallest xs      = length xs == minimum (counts s)
                counts             = filter (/= 1) . map length . concat
                -- ^ remove singletons, but leave empty cells for a quicker resolution
            in  [rows1 ++ [row1 ++ [c]:row2] ++ rows2 | c <- cs]
+           -- ^ put everything back but expand the smallest cell cs
 
 isSingleton :: [a] -> Bool
 isSingleton xs = length xs == 1
@@ -49,7 +52,6 @@ isSafe s = let ok xs = noDups $ filter isSingleton xs
            in  all ok (rows s) &&
                all ok (cols s) &&
                all ok (boxes s)
-
 
 noDups :: (Eq a) => [a] -> Bool
 noDups []     = True
@@ -99,10 +101,10 @@ showSolution s = do
   case length sol of
     0 -> putStrLn "No solution found!"
     1 -> do
-      putStrLn "Solution:"
+      putStrLn "Single solution:"
       putStrLn $ sudokuToString $ head sol
     _ -> do
-      putStrLn "Solutions:"
+      putStrLn "Multiple solutions:"
       mapM_ (putStrLn . sudokuToString) sol
 
 main :: IO ()
