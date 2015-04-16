@@ -1,9 +1,14 @@
 {-
   A Haskell program to solve Sodoku puzzles
   Ray Qiu <ray.qiu@gmail.com>, April 2015
+
+  With parallelism built in, use with +RTS -s -Nx
 -}
 
-import Data.Char (digitToInt)
+import           Control.Applicative
+import           Control.Parallel.Strategies
+import           Data.Char                   (digitToInt)
+import           System.IO
 
 type Matrix a = [Row a]
 type Row a = [a]
@@ -30,7 +35,7 @@ search :: Matrix [Digit] -> [Sudoku]
 search cm
   | not (isSafe pm)  = []
   | isComplete pm  = [map (map head) pm]
-  | otherwise      = concatMap search (expand pm)
+  | otherwise      = (concat . parMap rpar search) (expand pm) --concatMap search (expand pm)
     where pm = prune cm
 
 {-| Expand a non-singleton cell at a time -}
@@ -149,7 +154,6 @@ main = do
            [0,1,0,0,0,9,0,0,0],
            [0,0,2,5,4,0,0,0,0]] :: Sudoku
   showSolution c
-  let t1 = "000000010400000000020000000000050407008000300001090000300400200050100000000806000"
-  showSolution $ textToSudoku t1
-  let t2 = "000000051060007000000030000000006200700000030500100000024000600000850700000000000"
-  showSolution $ textToSudoku t2
+  sudoku17 <- openFile "sudoku17.txt" ReadMode
+  sudoku17s <- lines <$> hGetContents sudoku17
+  mapM_ (showSolution . textToSudoku) $ take 100 sudoku17s
