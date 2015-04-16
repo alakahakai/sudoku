@@ -2,7 +2,7 @@
   A Haskell program to solve Sodoku puzzles
   Ray Qiu <ray.qiu@gmail.com>, April 2015
 
-  With parallelism built in, use with +RTS -s -Nx
+  With parallelism built in, compiled using RTS options: -s -N
 -}
 
 module Sudoku (
