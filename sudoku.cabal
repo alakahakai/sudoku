@@ -9,16 +9,24 @@ version:             0.1.0.0
 license-file:        LICENSE
 author:              Ray Qiu
 maintainer:          ray.qiu@gmail.com
--- copyright:
+copyright:           Ray Qiu <ray.qiu@gmail.com>
 -- category:
 build-type:          Simple
 -- extra-source-files:
 cabal-version:       >=1.10
 
+library
+  build-depends:       base >= 4.7.0.1, parallel >= 3.0
+  Exposed-modules:     Sudoku
+  ghc-options:         -O2 -Wall -threaded
+  -- hs-source-dirs:
+  default-language:    Haskell2010
+
 executable sudoku
   main-is:             Main.hs
   -- other-modules:
   -- other-extensions:
-  build-depends:       base >=4.7.0.1, parallel
+  build-depends:       base >= 4.7.0.1, parallel >= 3.0
+  ghc-options:         -O2 -Wall -threaded
   -- hs-source-dirs:
   default-language:    Haskell2010
