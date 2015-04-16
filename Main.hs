@@ -3,6 +3,8 @@
   Ray Qiu <ray.qiu@gmail.com>, April 2015
 -}
 
+import Data.Char (digitToInt)
+
 type Matrix a = [Row a]
 type Row a = [a]
 type Sudoku = Matrix Digit
@@ -86,6 +88,12 @@ prune = let pruneBy f = f . map prune' . f
                              rm _ [x] = [x]
                              rm ds xs  = filter (`notElem` ds) xs
 
+{-| Each Sudoku is formated as a single string of 81 digits that are concatenated row by row -}
+textToSudoku :: String -> Sudoku
+textToSudoku s =
+  let gs = group 9 s
+  in  foldr (zipWith (:)) (repeat []) $ foldr (zipWith (:) . map digitToInt) (repeat []) gs
+
 sudokuToString :: Sudoku -> String
 sudokuToString [] = ""
 sudokuToString (xs:xss) =
@@ -111,15 +119,15 @@ showSolution s = do
 
 main :: IO ()
 main = do
-  let a = [[0,0,4,0,0,5,7,0,0],
-           [0,0,0,0,0,9,4,0,0],
-           [3,6,0,0,0,0,0,0,8],
-           [7,2,0,0,6,0,0,0,0],
-           [0,0,0,4,0,2,0,0,0],
-           [0,0,0,0,8,0,0,9,3],
-           [4,0,0,0,0,0,0,5,6],
-           [0,0,5,3,0,0,0,0,0],
-           [0,0,6,1,0,0,9,0,0]] :: Sudoku
+  let a = [[0,0,0,0,0,0,0,0,0],
+           [0,0,0,0,0,0,5,2,3],
+           [0,0,0,0,0,0,0,1,8],
+           [0,0,0,0,0,0,0,0,0],
+           [0,0,9,0,7,4,0,6,0],
+           [0,0,4,6,1,0,0,0,7],
+           [0,5,8,0,4,3,0,0,0],
+           [0,4,0,0,2,0,0,3,0],
+           [0,6,7,0,8,1,0,9,4]] :: Sudoku
   showSolution a
   let b = [[9,0,6,0,7,0,4,0,3],
            [0,0,0,4,0,0,2,0,0],
@@ -141,3 +149,7 @@ main = do
            [0,1,0,0,0,9,0,0,0],
            [0,0,2,5,4,0,0,0,0]] :: Sudoku
   showSolution c
+  let t1 = "000000010400000000020000000000050407008000300001090000300400200050100000000806000"
+  showSolution $ textToSudoku t1
+  let t2 = "000000051060007000000030000000006200700000030500100000024000600000850700000000000"
+  showSolution $ textToSudoku t2
