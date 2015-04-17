@@ -1,7 +1,6 @@
 # sudoku
 
-  A Haskell program to solve Sodoku puzzles
-  Takes file and command line text inputs
+  A Haskell program to solve Sodoku puzzles, takes file and command line text inputs
 
   With parallelism built in, compiled using RTS options: -N
 
