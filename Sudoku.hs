@@ -83,9 +83,9 @@ boxes = map concat . concatMap cols . group 3 . map (group 3)
 
 group :: Int -> [a] -> [[a]]
 group _ [] = []
-group n xs = if n > length xs
-               then [xs]
-               else take n xs : group n (drop n xs)
+group n xs
+  | n > length xs  = [xs]
+  | otherwise      = take n xs : group n (drop n xs)
 
 prune :: Matrix [Digit] -> Matrix [Digit]
 prune = let pruneBy f = f . map prune' . f
@@ -93,7 +93,7 @@ prune = let pruneBy f = f . map prune' . f
           where
             prune' :: Row [Digit] -> Row [Digit]
             prune' r = let singles = concat $ filter isSingleton r
-                         in  map (rm singles) r
+                       in  map (rm singles) r
                            where
                              rm :: [Digit] -> [Digit] -> [Digit]
                              rm _ [x] = [x]
