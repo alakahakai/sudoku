@@ -30,7 +30,7 @@ cmdArgs = CmdArgs
         <> help "Name of the Sudoku text file"))
   <*> optional (argument str
         (metavar "<Sudoku-text>"
-        <> help "Sodoku puzzle text"))
+        <> help "Sodoku puzzle text, multiple puzzles allowed in quotes with whitespace separation"))
 
 argsParser :: ParserInfo CmdArgs
 argsParser =
