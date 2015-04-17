@@ -1,8 +1,10 @@
 {-
   A Haskell program to solve Sodoku puzzles
-  Ray Qiu <ray.qiu@gmail.com>, April 2015
+  Takes file and command line text inputs
 
-  With parallelism built in, compiled using RTS options: -s -N
+  With parallelism built in, compiled using RTS options: -N
+
+  Ray Qiu <ray.qiu@gmail.com>, April 2015
 -}
 
 module Sudoku (
