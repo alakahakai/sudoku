@@ -54,8 +54,8 @@ Single solution:
 6 7 1 9 8 5 2 3 4  
 4 3 5 2 1 6 7 8 9  
 
-rqiu-mbp15:sudoku rqiu$ dist/build/sudoku/sudoku -f puzzles.txt
-Sudoku puzzle:
+rqiu-mbp15:sudoku rqiu$ dist/build/sudoku/sudoku -f puzzles.txt  
+Sudoku puzzle:  
 ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒ ▒  
 ▒ ▒ ▒ ▒ ▒ ▒ 5 2 3  
 ▒ ▒ ▒ ▒ ▒ ▒ ▒ 1 8  
